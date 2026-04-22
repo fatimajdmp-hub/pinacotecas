@@ -16,8 +16,8 @@ Pasos detallados para:
 4. Configurar la cadena de conexión en el proyecto.
 
 ## Clonar el repositorio
-git clone https://github.com/[usuario]/pinacotecas.git
-cd pinacotecas
+git clone https://github.com/[usuario]/pinacoteca.git
+cd pinacoteca
 
 ## Compilación y ejecución
 Pasos para compilar el proyecto y ejecutarlo desde línea de comandos o IDE.
