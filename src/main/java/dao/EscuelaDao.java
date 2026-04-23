@@ -20,6 +20,6 @@ public interface EscuelaDao {
 
     void actualizarEscuela(Escuela escuela);
 
-    void eliminarEscuela(Escuela escuela);
+    void eliminarEscuela(String escuela);
 
 }

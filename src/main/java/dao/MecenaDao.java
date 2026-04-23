@@ -21,5 +21,10 @@ public interface MecenaDao {
 
     void actualizarMecena(Mecena mecena);
 
-    void eliminarMecena(Mecena mecena);
+    void eliminarMecena(String nombre);
+
+    void asociarMecenaConPintor(String nombreMecena, String nombrePintor, String relacion);
+
+    void desvincularMecenaDePintor(String nombreMecena, String nombrePintor);
+
 }

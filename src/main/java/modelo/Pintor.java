@@ -31,7 +31,7 @@ public class Pintor {
     public Pintor() {
     }
 
-    //Geter
+    //Geter y Setter
 
     public String getNombre() {
         return nombre;

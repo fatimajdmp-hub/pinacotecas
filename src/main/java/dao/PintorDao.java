@@ -21,7 +21,7 @@ public interface PintorDao {
 
     boolean isMaestro(Pintor pintor);
 
-    void eliminarPintor(Pintor pintor);
+    void eliminarPintor(String nombre);
 
     List<Pintor> listarPintor();
 
