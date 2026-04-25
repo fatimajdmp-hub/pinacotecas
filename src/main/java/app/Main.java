@@ -5,7 +5,7 @@ import dao.*;
 import java.util.Scanner;
 
 /**
- * @author Juan Francisco Garrido Ariza
+ * @author Juan Francisco Garrido Ariza y Hugo Rodriguez Vigueras
  * @version 25.0.1
  * @since 2026.04.23
  */
