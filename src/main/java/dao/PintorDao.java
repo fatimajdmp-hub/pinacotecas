@@ -19,7 +19,7 @@ public interface PintorDao {
 
     void actualizarDatosPintor(Pintor pintor);
 
-    boolean isMaestro(Pintor pintor);
+    boolean isMaestro(String pintor);
 
     void eliminarPintor(String nombre);
 

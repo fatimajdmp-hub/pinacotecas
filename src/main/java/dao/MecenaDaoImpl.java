@@ -27,7 +27,7 @@ public class MecenaDaoImpl implements MecenaDao {
                     fecha TEXT,
                     pais TEXT,
                     ciudadNacimiento TEXT,
-                    fechaDefuncion TEXT,
+                    fechaDeFuncion TEXT,
                     PRIMARY KEY (nombre)
                 );
                 """;
@@ -58,7 +58,7 @@ public class MecenaDaoImpl implements MecenaDao {
 
     @Override
     public void insertarMecena(Mecena mecena) {
-        String sql = "INSERT INTO mecenas (nombre,fecha,pais,ciudadNacimiento,fechaDefuncion) VALUES (?,?,?,?)";
+        String sql = "INSERT INTO mecenas (nombre,fecha,pais,ciudadNacimiento,fechaDeFuncion) VALUES (?,?,?,?,?)";
         try (Connection connection = ConexionBD.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
 
@@ -101,7 +101,7 @@ public class MecenaDaoImpl implements MecenaDao {
 
     @Override
     public void actualizarMecena(Mecena mecena) {
-        String sql = "UPDATE mecenas SET fecha =?, pais=?, ciudadNacimiento=?, fechaDefuncion = ? WHERE nombre=?";
+        String sql = "UPDATE mecenas SET fecha =?, pais=?, ciudadNacimiento=?, fechaDeFuncion = ? WHERE nombre=?";
         try (Connection connection = ConexionBD.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(sql);) {
 
@@ -134,7 +134,7 @@ public class MecenaDaoImpl implements MecenaDao {
 
     @Override
     public void asociarMecenaConPintor(String nombreMecena, String nombrePintor, String relacion) {
-        String sql = "INSERT OR REPLACE INTO pintor_mecenas(nombre_mecena, nombre_pintor, relacion) VALUES(?, ?, ?)";
+        String sql = "INSERT OR REPLACE INTO pintor_mecenas(nombre_mecena, nombre_pintor, tipoRelacion) VALUES(?, ?, ?)";
         try (Connection connection = ConexionBD.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
             preparedStatement.setString(1, nombreMecena);

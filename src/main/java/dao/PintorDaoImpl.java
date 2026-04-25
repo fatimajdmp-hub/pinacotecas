@@ -89,12 +89,12 @@ public class PintorDaoImpl implements PintorDao {
     }
 
     @Override
-    public boolean isMaestro(Pintor pintor) {
+    public boolean isMaestro(String pintor) {
         String sql = "SELECT COUNT(*) FROM pintores WHERE nombre_maestro = ?";
         try (Connection connection = ConexionBD.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(sql)){
 
-            preparedStatement.setString(1, pintor.getNombre());
+            preparedStatement.setString(1, pintor);
             try (ResultSet resultSet = preparedStatement.executeQuery()){
                 if (resultSet.next()) {
                     return resultSet.getInt(1) > 0;
