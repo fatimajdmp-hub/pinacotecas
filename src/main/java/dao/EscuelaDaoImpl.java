@@ -104,4 +104,45 @@ public class EscuelaDaoImpl implements EscuelaDao {
         }
     }
 
+    // Método para comprobar si una escuela tiene pintores
+    public boolean tienePintoresAsociados(String nombreEscuela) {
+        String sql = "SELECT COUNT(*) FROM pintores WHERE nombre_escuela = ?";
+        try (Connection connection = ConexionBD.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+
+            preparedStatement.setString(1, nombreEscuela);
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    return resultSet.getInt(1) > 0;
+                }
+            }
+        } catch (Exception e) {
+            System.out.println("Error al comprobar los pintores de la escuela: " + e.getMessage());
+        }
+        return false;
+    }
+
+    /**
+     * Comprueba si un pintor tiene cuadros asociados en la tabla CUADROS.
+     *
+     * @param nombrePintor Nombre del pintor a comprobar.
+     * @return true si tiene cuadros, false si no.
+     */
+    public boolean tieneCuadrosAsociados(String nombrePintor) {
+        String sql = "SELECT COUNT(*) FROM cuadros WHERE nombre_pintor = ?";
+        try (Connection connection = ConexionBD.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+
+            preparedStatement.setString(1, nombrePintor);
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    return resultSet.getInt(1) > 0;
+                }
+            }
+        } catch (Exception e) {
+            System.out.println("Error al comprobar los cuadros: " + e.getMessage());
+        }
+        return false;
+    }
+
 }

@@ -80,6 +80,9 @@ public class Escuela {
      * @param fechaDeCreacion
      */
     public void setFechaDeCreacion(String fechaDeCreacion) {
+        if (fechaDeCreacion == null || !fechaDeCreacion.matches("\\d{2}/\\d{2}/\\d{4}")){
+            throw new IllegalArgumentException("Formato incorrecto. Debe ser xx/xx/xxxx");
+        }
         this.fechaDeCreacion = fechaDeCreacion;
     }
 
@@ -87,6 +90,12 @@ public class Escuela {
     //Metodos propios
     @Override
     public String toString() {
-        return "nombre=" + nombre + ", PaisAparicion=" + paisAparicion + ", fechaDeCreacion=" + fechaDeCreacion;
+        String formato = "%-18s : %s%n";
+
+        return String.format("%n--- DATOS DE LA ESCUELA ---%n") +
+                String.format(formato, "Nombre", nombre) +
+                String.format(formato, "País Aparición", paisAparicion) +
+                String.format(formato, "Fecha Creación", fechaDeCreacion) +
+                "--------------------------";
     }
 }

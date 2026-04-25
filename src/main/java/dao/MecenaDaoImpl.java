@@ -134,7 +134,7 @@ public class MecenaDaoImpl implements MecenaDao {
 
     @Override
     public void asociarMecenaConPintor(String nombreMecena, String nombrePintor, String relacion) {
-        String sql = "INSERT OR REPLACE INTO pintor_mecenas(nombre_mecena, nombre_pintor, tipoRelacion) VALUES(?, ?, ?)";
+        String sql = "INSERT OR REPLACE INTO pintor_mecenas(nombre_mecenas, nombre_pintor, tipoRelacion) VALUES(?, ?, ?)";
         try (Connection connection = ConexionBD.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
             preparedStatement.setString(1, nombreMecena);
@@ -150,7 +150,7 @@ public class MecenaDaoImpl implements MecenaDao {
 
     @Override
     public void desvincularMecenaDePintor(String nombreMecena, String nombrePintor) {
-        String sql = "DELETE FROM pintor_mecenas WHERE nombre_mecena = ? AND nombre_pintor = ?";
+        String sql = "DELETE FROM pintor_mecenas WHERE nombre_mecenas = ? AND nombre_pintor = ?";
         try (Connection connection = ConexionBD.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
             preparedStatement.setString(1, nombreMecena);
