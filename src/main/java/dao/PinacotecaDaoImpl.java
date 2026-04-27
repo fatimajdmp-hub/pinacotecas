@@ -18,6 +18,12 @@ import java.util.List;
  */
 
 public class PinacotecaDaoImpl implements PinacotecaDao {
+
+    /**
+     * Crear tabla pinacotecas.
+     * Clave primaria: nombre tipo texto no nulo.
+     * Atributos: ciudad (tipo texto), direccion (tipo texto), metrosCuadrados (Tipo numeric).
+     */
     @Override
     public void crearTabla() {
         String sql = """ 
@@ -38,6 +44,10 @@ public class PinacotecaDaoImpl implements PinacotecaDao {
         }
     }
 
+    /**
+     * Recibe un objeto tipo pinacoteca y lo inserta en la tabla Pinacotecas en sus columnas correspondientes.
+     * @param pinacoteca
+     */
     @Override
     public void darAlta(Pinacoteca pinacoteca) {
         String sql = "INSERT INTO pinacotecas (nombre, ciudad, direccion, metrosCuadrados) VALUES (?,?,?,?)";
@@ -57,6 +67,10 @@ public class PinacotecaDaoImpl implements PinacotecaDao {
         }
     }
 
+    /**
+     * Lee fila por fila de pinacotecas y crea un objeto pinacoteca con sus datos y lo guarda en una lista.
+     * @return devuelve una lista de pinacoteca
+     */
     @Override
     public List<Pinacoteca> listarTodos() {
         String sql = "SELECT * FROM pinacotecas";
@@ -80,6 +94,11 @@ public class PinacotecaDaoImpl implements PinacotecaDao {
         return listaPinacoteca;
     }
 
+    /**
+     * Busca en la tabla pinacotecas el nombre de la pinacoteca y si lo encuentra crea un objeto con sus datos.
+     * @param nombre
+     * @return devuelve un objeto pinacoteca
+     */
     @Override
     public Pinacoteca buscarPorNombre(String nombre) {
         String sql = "SELECT * FROM pinacotecas WHERE nombre = ?";
@@ -105,6 +124,11 @@ public class PinacotecaDaoImpl implements PinacotecaDao {
         return null;
     }
 
+    /**
+     * Recibe un objeto pinacoteca con los cambio ya hechos y lo actualiza en la tabla donde estaba la pinacoteca
+     * que queriamos actualizar.
+     * @param pinacoteca
+     */
     @Override
     public void actualizar(Pinacoteca pinacoteca) {
         String sql = "UPDATE pinacotecas SET ciudad = ?,direccion=?, metrosCuadrados=? WHERE nombre = ?";
@@ -122,6 +146,10 @@ public class PinacotecaDaoImpl implements PinacotecaDao {
         }
     }
 
+    /**
+     * Elimina la pinacoteca de la tabla pinacotecas.
+     * @param nombre
+     */
     @Override
     public void eliminar(String nombre) {
         String sql = "DELETE FROM pinacotecas WHERE nombre = ?";

@@ -25,4 +25,5 @@ public interface PintorDao {
 
     List<Pintor> listarPintor();
 
+    boolean tieneCuadrosAsociados(String nombrePintor);
 }

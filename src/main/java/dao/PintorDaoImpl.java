@@ -17,6 +17,12 @@ import java.util.Scanner;
 
 public class PintorDaoImpl implements PintorDao {
 
+    /**
+     * Crear tabla pintores.
+     * Clave primaria: nombre tipo texto no nulo.
+     * Clave foranea: pintor_escuela (Tabla Escuela), pintor_maestro(Tabla Pintores) tipo texto, si el nombre cambia se actualiza automaticamnete.
+     * Atributos: pais,ciudadNacimiento,FechaDeFuncion.
+     */
     @Override
     public void crearTabla() {
         String sql = """ 
@@ -47,9 +53,14 @@ public class PintorDaoImpl implements PintorDao {
         }
     }
 
+    /**
+     *  Recibe un objeto pintor e inserta todos sus datos en la tabla pintor en sus columna correspondiente.
+     * @param pintor
+     */
     @Override
     public void insertarPintor(Pintor pintor) {
-        String sql = "INSERT INTO pintores(nombre,pais,ciudadNacimiento,fechaNacimiento,fechaDefuncion,nombre_escuela,nombre_maestro) VALUES(?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO pintores(nombre,pais,ciudadNacimiento,fechaNacimiento,fechaDefuncion,nombre_escuela" +
+                ",nombre_maestro) VALUES(?,?,?,?,?,?,?)";
 
         try (Connection connection = ConexionBD.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
@@ -67,9 +78,15 @@ public class PintorDaoImpl implements PintorDao {
         }
     }
 
+    /**
+     * Recibe un objeto pintor con los cambio ya hechos y lo actualiza en la tabla donde estaba el pintor que queriamos
+     * actualizar.
+     * @param pintor
+     */
     @Override
     public void actualizarDatosPintor(Pintor pintor) {
-        String sql = "UPDATE pintores SET pais = ?,ciudadNacimiento = ?,fechaNacimiento = ?,fechaDefuncion = ?,nombre_escuela = ?,nombre_maestro = ? WHERE nombre=?";
+        String sql = "UPDATE pintores SET pais = ?,ciudadNacimiento = ?,fechaNacimiento = ?,fechaDefuncion = ?" +
+                ",nombre_escuela = ?,nombre_maestro = ? WHERE nombre=?";
 
         try (Connection connection = ConexionBD.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
@@ -88,6 +105,11 @@ public class PintorDaoImpl implements PintorDao {
         }
     }
 
+    /**
+     * Recibe el nombre pintor y busca en la columna nombre_maestro si aparece su nombre.
+     * @param pintor
+     * @return devuelve si el pintor es maestro o no.
+     */
     @Override
     public boolean isMaestro(String pintor) {
         String sql = "SELECT COUNT(*) FROM pintores WHERE nombre_maestro = ?";
@@ -107,6 +129,10 @@ public class PintorDaoImpl implements PintorDao {
         return false;
     }
 
+    /**
+     * Elimina el pintor de la tabla pintores.
+     * @param nombre
+     */
     @Override
     public void eliminarPintor(String nombre) {
         String sql = "DELETE FROM pintores WHERE nombre=?";
@@ -123,6 +149,10 @@ public class PintorDaoImpl implements PintorDao {
 
     }
 
+    /**
+     * Lee fila por fila de la tabla pintores y crea un objeto pintor con los datos de esa fila y lo mete en una lista.
+     * @return devuelve una lista con todos los datos de cada pintor.
+     */
     @Override
     public List<Pintor> listarPintor() {
         List<Pintor> listaPintor = new ArrayList<>();
@@ -145,6 +175,30 @@ public class PintorDaoImpl implements PintorDao {
             System.out.println("Error al listar tabla PINTOR" + e.getMessage());
         }
         return listaPintor;
+    }
+
+    /**
+     * Comprueba si un pintor tiene cuadros asociados en la tabla CUADROS.
+     *
+     * @param nombrePintor Nombre del pintor a comprobar.
+     * @return true si tiene cuadros, false si no.
+     */
+    @Override
+    public boolean tieneCuadrosAsociados(String nombrePintor) {
+        String sql = "SELECT COUNT(*) FROM cuadros WHERE nombre_pintor = ?";
+        try (Connection connection = ConexionBD.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+
+            preparedStatement.setString(1, nombrePintor);
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    return resultSet.getInt(1) > 0;
+                }
+            }
+        } catch (Exception e) {
+            System.out.println("Error al comprobar los cuadros: " + e.getMessage());
+        }
+        return false;
     }
 
 }

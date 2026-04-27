@@ -18,7 +18,18 @@ import java.util.List;
  */
 
 public class MecenaDaoImpl implements MecenaDao {
-
+    /**
+     * Tabla Mecenas:
+     * Crea la tabla mecenas.
+     * Clave primaria: nombre tipo texto no nulo.
+     * Atributo: fecha,pais,ciudadNacimiento,fechaDeFunccion tipo texto.
+     *
+     * Tabla relacion pintor_mecenas:
+     * Crea la tabla pintor_mecenas
+     * Clave primaria: nombre_pintor, nombre_mecenas tipo texto no nulo.
+     * Atributo: tipoRelacion tipo texto.
+     * Clave foranea: nombre_pintor(Tabla Pintores),nombre_mecenas(Tabla Mecenas).
+     */
     @Override
     public void crearTabla() {
         String sqlMecenas = """ 
@@ -56,6 +67,10 @@ public class MecenaDaoImpl implements MecenaDao {
         }
     }
 
+    /**
+     * Recibe un objeto Mecena y inserta los datos de mecena en la tabla mecenas en sus columna correspondientes
+     * @param mecena
+     */
     @Override
     public void insertarMecena(Mecena mecena) {
         String sql = "INSERT INTO mecenas (nombre,fecha,pais,ciudadNacimiento,fechaDeFuncion) VALUES (?,?,?,?,?)";
@@ -75,6 +90,10 @@ public class MecenaDaoImpl implements MecenaDao {
         }
     }
 
+    /**
+     * Lee fila por fila de mecenas y crea un objeto mecena con sus datos y lo guarda en una lista.
+     * @return devuelve la lista de mecenas
+     */
     @Override
     public List<Mecena> listarMecenas() {
         String sql = "SELECT * FROM mecenas";
@@ -99,6 +118,11 @@ public class MecenaDaoImpl implements MecenaDao {
         return mecenas;
     }
 
+    /**
+     * Recibe un objeto mecena con los cambio ya hechos y lo actualiza en la tabla donde estaba mecena que queriamos
+     * actualizar.
+     * @param mecena
+     */
     @Override
     public void actualizarMecena(Mecena mecena) {
         String sql = "UPDATE mecenas SET fecha =?, pais=?, ciudadNacimiento=?, fechaDeFuncion = ? WHERE nombre=?";
@@ -117,6 +141,10 @@ public class MecenaDaoImpl implements MecenaDao {
         }
     }
 
+    /**
+     * Elimina la mecena de la tabla mecenas.
+     * @param nombre
+     */
     @Override
     public void eliminarMecena(String nombre) {
         String sql = "DELETE FROM mecenas WHERE nombre=?";
@@ -132,6 +160,13 @@ public class MecenaDaoImpl implements MecenaDao {
         }
     }
 
+    /**
+     * Asocia las claves foranea nombre_mecenas y nombre_pintor y lo guarda en la tabla pintor_mecenas.
+     *
+     * @param nombreMecena tabla mecenas
+     * @param nombrePintor tabla pintores
+     * @param relacion
+     */
     @Override
     public void asociarMecenaConPintor(String nombreMecena, String nombrePintor, String relacion) {
         String sql = "INSERT OR REPLACE INTO pintor_mecenas(nombre_mecenas, nombre_pintor, tipoRelacion) VALUES(?, ?, ?)";
@@ -148,6 +183,12 @@ public class MecenaDaoImpl implements MecenaDao {
         }
     }
 
+    /**
+     * Descvincula las claves foranea nombre_mecenas y nombre_pintor y lo elimina de la tabla .
+     *
+     * @param nombreMecena tabla mecenas
+     * @param nombrePintor tabla pintores
+     */
     @Override
     public void desvincularMecenaDePintor(String nombreMecena, String nombrePintor) {
         String sql = "DELETE FROM pintor_mecenas WHERE nombre_mecenas = ? AND nombre_pintor = ?";

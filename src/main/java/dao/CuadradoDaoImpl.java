@@ -18,7 +18,12 @@ import java.util.List;
  */
 
 public class CuadradoDaoImpl implements CuadradoDAO {
-
+    /**
+     * Crea la tabla cuadrados.
+     * Clave primaria: codigo tipo texto no nulo.
+     * Clave foranea: nombre_pinacoteca(Tabla pinacotecas), nombre_pintor(Tabla pintores) tipo texto.
+     * Atributo dimensiones, fechaPintado, tecnica tipo texto.
+     */
     @Override
     public void crearTabla() {
         String sql = """
@@ -49,9 +54,14 @@ public class CuadradoDaoImpl implements CuadradoDAO {
         }
     }
 
+    /**
+     * Recibe un objeto tipo cuadrado y lo inserta en la tabla cuadrado en sus columnas correspondientes.
+     * @param cuadrado
+     */
     @Override
     public void insertarCuadrado(Cuadrado cuadrado) {
-        String sql = "INSERT INTO cuadrados(codigo,nombre,dimensiones,fechaPintado,tecnica,tecnicanombre_pinacoteca,nombre_pintor) VALUES(?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO cuadrados(codigo,nombre,dimensiones,fechaPintado,tecnica,tecnicanombre_pinacoteca" +
+                ",nombre_pintor) VALUES(?, ?, ?, ?, ?, ?, ?)";
         try (Connection connection = ConexionBD.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
             preparedStatement.setString(1, cuadrado.getCodigo());
@@ -68,6 +78,10 @@ public class CuadradoDaoImpl implements CuadradoDAO {
         }
     }
 
+    /**
+     * Lee fila por fila de la tabla cuadrado y crea un objeto cuadrado con los datos de esa fila y lo mete en una lista.
+     * @return devuelve una lista con la infromacion de los cuadrados.
+     */
     @Override
     public List<Cuadrado> listarCuadrado() {
         String sql = "SELECT * FROM cuadrados";
@@ -94,9 +108,15 @@ public class CuadradoDaoImpl implements CuadradoDAO {
         return listaCuadrado;
     }
 
+    /**
+     * Recibe un objeto cuadrado con los cambio ya hechos y lo actualiza en la tabla donde estaba el cuadrado que
+     * queriamo actualizar.
+     * @param cuadrado
+     */
     @Override
     public void actualizarCuadrado(Cuadrado cuadrado) {
-        String sql = "UPDATE cuadrados SET nombre=?, dimensiones=?, fechaPintado=?, tecnica=?, nombre_pinacoteca=?, nombre_pintor=? WHERE codigo=?";
+        String sql = "UPDATE cuadrados SET nombre=?, dimensiones=?, fechaPintado=?, tecnica=?, nombre_pinacoteca=?" +
+                ", nombre_pintor=? WHERE codigo=?";
 
         try (Connection connection = ConexionBD.getConnection();
         PreparedStatement preparedStatement = connection.prepareStatement(sql)){
@@ -114,6 +134,10 @@ public class CuadradoDaoImpl implements CuadradoDAO {
         }
     }
 
+    /**
+     * Elimina el cuadrado de la tabla cuadrados.
+     * @param codigo
+     */
     @Override
     public void eliminarCuadrado(String codigo) {
         String sql = "DELETE FROM cuadrados WHERE codigo = ?";

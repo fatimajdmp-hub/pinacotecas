@@ -22,4 +22,8 @@ public interface EscuelaDao {
 
     void eliminarEscuela(String escuela);
 
+    boolean tienePintoresAsociados(String nombreEscuela);
+
+    boolean tieneCuadrosAsociados(String nombrePintor);
+
 }
