@@ -1,1 +1,0 @@
-PinacotecaDAO , CuadroDAO , PintoresDAO, EscuelasDAO, MaestroDAO, MecenasDAO

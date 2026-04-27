@@ -82,11 +82,11 @@ public class MenuPinacotecas {
             System.out.println("No encontrada.");
             return;
         }
-        System.out.print("Antigua ciudad: "+ existente.getCiudad() + "Nueva ciudad :");
+        System.out.print("Antigua ciudad: "+ existente.getCiudad() + "\n Nueva ciudad :");
         String ciudad = sc.nextLine();
-        System.out.print("Antigua direccion: "+ existente.getDireccion() +"Nueva dirección :");
+        System.out.print("Antigua direccion: "+ existente.getDireccion() +"\n Nueva dirección :");
         String direccion = sc.nextLine();
-        System.out.print("Antiguos metros cuadrados: "+ existente.getMetrosCuadrados() + "Nuevos metros cuadrados: ");
+        System.out.print("Antiguos metros cuadrados: "+ existente.getMetrosCuadrados() + "\n Nuevos metros cuadrados: ");
         String metros = sc.nextLine();
 
         //Esto alomejor se puede refactorizar

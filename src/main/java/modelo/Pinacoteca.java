@@ -1,6 +1,7 @@
 package modelo;
 
 /**
+ * Clase Pinacoteca
  *
  * @author Diego Manuel carrasco villarán
  * @version 25.0.1

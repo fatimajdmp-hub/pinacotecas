@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Scanner;
 
 /**
+ *  Gestion de la tabla Pintores
  *
  * @author Diego Manuel carrasco villarán
  * @version 25.0.1

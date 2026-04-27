@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * Gestion de la tabla Pinacotecas
  *
  * @author Diego Manuel carrasco villarán
  * @version 25.0.1
