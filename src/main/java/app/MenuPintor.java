@@ -2,6 +2,7 @@ package app;
 
 import dao.PintorDaoImpl;
 import modelo.Pintor;
+
 import java.util.List;
 import java.util.Scanner;
 
@@ -20,7 +21,7 @@ public class MenuPintor {
      * Muestra el menú principal de gestión de pintores y gestiona la navegación
      * del usuario según la opción elegida.
      *
-     * @param sc Objeto Scanner para la lectura de datos desde la consola.
+     * @param sc        Objeto Scanner para la lectura de datos desde la consola.
      * @param pintorDao Implementación del DAO para realizar las operaciones en la base de datos.
      */
     public static void mostrar(Scanner sc, PintorDaoImpl pintorDao) {
@@ -50,7 +51,7 @@ public class MenuPintor {
      * Solicita al usuario todos los atributos necesarios para registrar un nuevo pintor,
      * permitiendo establecer relaciones opcionales con una escuela o un maestro.
      *
-     * @param sc Objeto Scanner para capturar los datos de entrada.
+     * @param sc        Objeto Scanner para capturar los datos de entrada.
      * @param pintorDao Objeto DAO para ejecutar la inserción.
      */
     public static void registrar(Scanner sc, PintorDaoImpl pintorDao) {
@@ -81,7 +82,7 @@ public class MenuPintor {
      * Permite consultar el listado de pintores. Ofrece un submenú para aplicar filtros
      * específicos por nombre, país o escuela a la que pertenecen.
      *
-     * @param sc Objeto Scanner para elegir la opción de filtrado.
+     * @param sc        Objeto Scanner para elegir la opción de filtrado.
      * @param pintorDao Objeto DAO para obtener la lista inicial de pintores.
      */
     public static void consultar(Scanner sc, PintorDaoImpl pintorDao) {
@@ -125,7 +126,7 @@ public class MenuPintor {
      * Solicita el nombre de un pintor existente y permite actualizar todos sus datos,
      * incluyendo la modificación de su relación de maestro y su escuela.
      *
-     * @param sc Objeto Scanner para capturar los nuevos datos.
+     * @param sc        Objeto Scanner para capturar los nuevos datos.
      * @param pintorDao Objeto DAO para ejecutar la actualización.
      */
     public static void modificar(Scanner sc, PintorDaoImpl pintorDao) {
@@ -157,7 +158,7 @@ public class MenuPintor {
      * Gestiona la eliminación de un pintor. Antes de proceder, verifica estrictamente
      * que el pintor no tenga cuadros asociados en la base de datos.
      *
-     * @param sc Objeto Scanner para capturar el nombre del pintor a borrar.
+     * @param sc        Objeto Scanner para capturar el nombre del pintor a borrar.
      * @param pintorDao Objeto DAO para verificar cuadros asociados y ejecutar el borrado.
      */
     public static void eliminar(Scanner sc, PintorDaoImpl pintorDao) {
@@ -191,12 +192,17 @@ public class MenuPintor {
         }
     }
 
-   // Incompleto
+    /**
+     * Método auxiliar privado que formatea e imprime por pantalla si un pintor es maestro o no lo es
+     *
+     * @param sc
+     * @param pintorDao
+     */
     public static void esMaestro(Scanner sc, PintorDaoImpl pintorDao) {
         System.out.print("Introduce el nombre del pintor para saber si es maestro: ");
         String nombrePintor = sc.nextLine();
 
         String maestro = pintorDao.isMaestro(nombrePintor) ? "es maestro" : "no es maestro";
-        System.out.println( nombrePintor +" "+ maestro);
+        System.out.println(nombrePintor + " " + maestro);
     }
 }
